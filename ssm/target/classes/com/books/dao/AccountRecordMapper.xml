@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.books.dao.AccountRecordDao">
+<!-- 查询金额变动记录 -->
+<select id="getAccountRecord" parameterType="int" resultType="AccountRecord">
+select * from Account_Record where userid=#{userid}
+</select>
+
+<!--增加金额变动记录  -->
+<insert id="addAccountRecord" parameterType="AccountRecord" useGeneratedKeys="true" keyProperty="recordid">
+insert into account_record (userid,money,changetime,type) values(#{userid},#{money},#{changetime},#{type})
+</insert>
+
+
+
+</mapper>

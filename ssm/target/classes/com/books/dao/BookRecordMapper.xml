@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.books.dao.BookRecordDao">
+<!-- 根据用户id查询借书记录 -->
+<select id="getBookRecord" parameterType="int" resultType="BookRecord">
+select * from book_record where userid=#{userid}
+</select>
+<!-- 根据用户id查询借书记录条数 -->
+<select id="getBookCount" parameterType="int" resultType="int" >
+select count(*) from book_record where userid=#{userid}
+</select>
+<!-- 租书 增加借书记录 -->
+<insert id="addBookRecord" parameterType="BookRecord" useGeneratedKeys="true" keyProperty="recordid">
+insert into book_record (recordid,userid,bookid,lendtime,returntime,expiretime) values(#{recordid},#{userid},#{bookid},#{lendtime},#{returntime},#{expiretime})
+</insert>
+<!-- 根据借书id查询借书记录 -->
+<select id="getSingeBR" parameterType="int" resultType="int">
+select bookid from book_record where recordid=#{recordid}
+</select>
+<!-- 修改租书记录 -->
+<update id="updateBookRecord" parameterType="BookRecord">
+update book_record set returntime=#{returntime} where recordid=#{recordid}
+</update>
+</mapper>

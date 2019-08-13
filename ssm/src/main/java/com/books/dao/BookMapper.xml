@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.books.dao.BookDao">
+<select id="getBook" parameterType="Map" resultType="Book">
+select * from book where status=1
+
+<if test="book.bookname!=null and book.bookname!=''">
+and bookname=#{book.bookname}
+</if>
+<if test="book.author!=null and book.author!=''">
+and author=#{book.author}
+</if>
+
+ limit #{begin},#{page.pageSize}
+</select>
+<select  id="getPage"  resultType="integer">
+select count(*) from book
+</select>
+<!-- 通过图书 id更改图书状态为借出 -->
+<update id="updateBookStatus" parameterType="int">
+update book set status=-1 where bookid=#{bookid}
+</update>
+<!-- 通过图书 id更改图书状态为在馆 -->
+<update id="updateStatus" parameterType="int">
+update book set status=1 where bookid=#{bookid}
+</update>
+</mapper>

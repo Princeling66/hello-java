@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.books.dao.UserDao">
+<select id="getUser" parameterType="User" resultType="User">
+select * from user where userid=#{userid} and password = #{password}
+</select>
+<!--根据用户ID增加欠费金额  -->
+<update id="updateMoney" parameterType="User">
+update user set owing_money=owing_money+${owing_money} where userid=#{userid}
+</update>
+<!-- //根据用户id查询有没有欠费 -->
+<select id="getMoney" parameterType="int" resultType="double">
+select owing_money from user where userid=#{userid}
+</select>
+<!-- 修改欠费用户状态 -->
+<update id="updateUser" parameterType="int">
+update user set status=-1 where userid=#{userid}
+</update>
+
+<!-- 修改欠费用户状态 -->
+<update id="updateUser2" parameterType="int">
+update user set status=1 where userid=#{userid}
+</update>
+
+<!--根据用户ID清零欠费金额  -->
+<update id="updateMZ" parameterType="int">
+update user set owing_money=0 where userid=#{userid}
+</update>
+</mapper>
